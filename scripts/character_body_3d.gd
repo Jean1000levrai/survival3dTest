@@ -2,30 +2,48 @@ extends CharacterBody3D
 
 
 @export var SPEED = 5.0
+@export var SPRINT_MULTI = 2.0
 @export var JUMP_VELOCITY = 4.5
+@export var sens = .5
 
 func _ready() -> void:
 	print("hello world!")
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		rotate_y(-deg_to_rad(event.relative.x * sens))
 
-func _physics_process(delta: float) -> void:
-	# Add the gravity.
+
+func movement(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	
+	if Input.is_action_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
+	var input_dir = Vector3.ZERO
+	if Input.is_action_pressed("move_backward"):
+		input_dir.z = 1
+	if Input.is_action_pressed("move_forward"):
+		input_dir.z = -1
+	if Input.is_action_pressed("move_left"):
+		input_dir.x = -1
+	if Input.is_action_pressed("move_right"):
+		input_dir.x = 1
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
+	input_dir = input_dir.normalized()
+
+	var direction = transform.basis * input_dir
+	if Input.is_action_pressed("sprint"):
+		velocity.x = direction.x * SPEED * SPRINT_MULTI
+		velocity.z = direction.z * SPEED * SPRINT_MULTI
+	else:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+	
 	move_and_slide()
+	
+
+func _physics_process(delta: float) -> void:
+	movement(delta)
+	
