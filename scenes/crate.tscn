@@ -1,19 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://djoivm1ipgeh0"]
 
-[ext_resource type="Script" uid="uid://dc00xbjyk7prh" path="res://scenes/crateRigidbody.gd" id="1_b66cd"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_8hhd1"]
+[ext_resource type="Script" uid="uid://b2splu3lqnkdi" path="res://scripts/crate.gd" id="1_b66cd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b66cd"]
 albedo_color = Color(0.43529412, 0.30588236, 0.21568628, 1)
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_8hhd1"]
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="Crate" type="RigidBody3D"]
 script = ExtResource("1_b66cd")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-shape = SubResource("BoxShape3D_8hhd1")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 material = SubResource("StandardMaterial3D_b66cd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_8hhd1")

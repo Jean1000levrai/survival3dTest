@@ -1,6 +1,6 @@
 extends Area3D
 
-# var PLAYER = $"../player"
+@onready var game_over: Label = $"../ui/GameOver"
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
@@ -11,5 +11,5 @@ func _on_body_entered(body: Node3D) -> void:
 	print(body.name)
 	if body.name == "CharacterBody":
 		print("u died lol")
-		$"../Label".visible = true
+		game_over.visible = true
 		
