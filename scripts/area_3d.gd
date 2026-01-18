@@ -8,7 +8,8 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node3D) -> void:
 	print("good")
-	if body.name == "player":
+	print(body.name)
+	if body.name == "CharacterBody":
 		print("u died lol")
 		$"../Label".visible = true
 		

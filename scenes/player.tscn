@@ -29,4 +29,9 @@ size = Vector3(0.7, 0.2, 0.5)
 [node name="cameraPivot" type="Node3D" parent="CharacterBody"]
 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody/cameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 0.91787934, 0.39685956, 0, -0.39685956, 0.91787934, 0, 1.7035444, 1.9949517)
+transform = Transform3D(1, 0, 0, 0, 0.91787934, 0.39685956, 0, -0.39685956, 0.91787934, 1.0783353, 2.1522515, 3.8676202)
+
+[node name="InteractRay" type="RayCast3D" parent="CharacterBody/cameraPivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.97295356, -0.23100078, 0, 0.23100078, 0.97295356, 0, 0.94465053, -4.0697975)
+target_position = Vector3(0, 0, -3)
+collide_with_areas = true

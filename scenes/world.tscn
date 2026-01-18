@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dehxo2xg4ie0h"]
+[gd_scene load_steps=12 format=3 uid="uid://dehxo2xg4ie0h"]
 
 [ext_resource type="Script" uid="uid://3efq7223ifrx" path="res://scripts/world.gd" id="1_k0juu"]
+[ext_resource type="PackedScene" uid="uid://djoivm1ipgeh0" path="res://scenes/crate.tscn" id="2_4wyf3"]
 [ext_resource type="Script" uid="uid://bis2ec0whfgh7" path="res://scripts/area_3d.gd" id="2_rwgxs"]
-[ext_resource type="Script" path="res://area_3d_2.gd" id="3_4wyf3"]
+[ext_resource type="Script" uid="uid://7cpoq2brfsxr" path="res://scripts/area_3d_2.gd" id="4_k0juu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e5uuo"]
 albedo_color = Color(0.09985124, 0.43522072, 0, 1)
@@ -28,8 +29,14 @@ size = Vector3(100, 1, 100)
 [sub_resource type="LabelSettings" id="LabelSettings_rwgxs"]
 font_size = 100
 
+[sub_resource type="LabelSettings" id="LabelSettings_4wyf3"]
+font_size = 150
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_k0juu")
+
+[node name="Node3D" parent="." instance=ExtResource("2_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1076407, -3.4352665)
 
 [node name="worldPlatforms" type="Node" parent="."]
 
@@ -77,7 +84,16 @@ script = ExtResource("2_rwgxs")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_4wyf3")
 
-[node name="Label" type="Label" parent="."]
+[node name="Area3D2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, 0)
+script = ExtResource("4_k0juu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+shape = SubResource("BoxShape3D_4wyf3")
+
+[node name="ui" type="Node" parent="."]
+
+[node name="GameOver" type="Label" parent="ui"]
 visible = false
 offset_right = 1152.0
 offset_bottom = 637.0
@@ -86,9 +102,11 @@ label_settings = SubResource("LabelSettings_rwgxs")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area3D2" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, 0)
-script = ExtResource("3_4wyf3")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
-shape = SubResource("BoxShape3D_4wyf3")
+[node name="Pause" type="Label" parent="ui"]
+visible = false
+offset_right = 1148.0
+offset_bottom = 643.0
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_4wyf3")
+horizontal_alignment = 1
+vertical_alignment = 1
