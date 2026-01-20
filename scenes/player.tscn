@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://jwditt1f5iox"]
+[gd_scene load_steps=20 format=4 uid="uid://jwditt1f5iox"]
 
 [ext_resource type="Script" uid="uid://dg5qxmvxmn25r" path="res://scripts/character_body_3d.gd" id="1_3vyb7"]
 
@@ -1808,9 +1808,6 @@ _data = {
 &"walking": SubResource("Animation_cewva")
 }
 
-[sub_resource type="LabelSettings" id="LabelSettings_3vyb7"]
-font_size = 50
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2els"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qhqgy"]
@@ -1818,6 +1815,12 @@ albedo_color = Color(1, 0.12941177, 0.11372549, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dqkch"]
 albedo_color = Color(0.43529412, 0.30588236, 0.21568628, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3vyb7"]
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_g2els"]
+font_size = 30
 
 [node name="CharacterBody" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6952367, 0)
@@ -2043,17 +2046,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_y8bjc")
 }
 
-[node name="Crosshair" type="Label" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "+"
-label_settings = SubResource("LabelSettings_3vyb7")
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16580915, 0)
 shape = SubResource("CapsuleShape3D_g2els")
@@ -2081,3 +2073,30 @@ collide_with_areas = true
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.7249222, 0.24189997, -0.20233345)
 visible = false
 material = SubResource("StandardMaterial3D_dqkch")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "+"
+label_settings = SubResource("LabelSettings_3vyb7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CoinLabel" type="Label" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Coins: 0"
+label_settings = SubResource("LabelSettings_g2els")

@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://cyfsvgvo0v822"]
+
+[ext_resource type="Script" uid="uid://cfmoj5enriiy8" path="res://scripts/basic_ore.gd" id="1_xptkm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xptkm"]
+albedo_color = Color(0.55500096, 0.116440065, 0.47241879, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wwda1"]
+albedo_color = Color(0.55500096, 0.116440065, 0.47241879, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cmpdw"]
+albedo_color = Color(0.55500096, 0.116440065, 0.47241879, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_06c5x"]
+albedo_color = Color(0.55500096, 0.116440065, 0.47241879, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjx1c"]
+albedo_color = Color(0.55500096, 0.116440065, 0.47241879, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8hhd1"]
+
+[node name="BasicOre" type="StaticBody3D"]
+script = ExtResource("1_xptkm")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+material = SubResource("StandardMaterial3D_xptkm")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.54427683, 0, 0)
+material = SubResource("StandardMaterial3D_wwda1")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.15034777, 0.43697476, 0.5785239)
+material = SubResource("StandardMaterial3D_cmpdw")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.15023053, -0.5651581)
+material = SubResource("StandardMaterial3D_06c5x")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.048214912, 0.51529384, -0.25063443)
+material = SubResource("StandardMaterial3D_sjx1c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_8hhd1")

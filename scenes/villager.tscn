@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://br0ffjtmlh41c"]
+
+[ext_resource type="Script" uid="uid://dchh354kxno65" path="res://scripts/villager.gd" id="1_kufqh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_umyks"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kufqh"]
+albedo_color = Color(0.3636292, 0.824183, 0, 1)
+
+[node name="villager" type="RigidBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("1_kufqh")
+villager_speed = 1.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_umyks")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+material = SubResource("StandardMaterial3D_kufqh")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54598176, 0.39511406)
+size = Vector3(0.8, 0.3, 0.5)

@@ -8,14 +8,17 @@ signal place_item_signal(hit_pos: Vector3)
 
 
 # player statistics
-@export var speed = 5.0
-@export var sprint_multi = 2.0
-@export var jump_velocity = 4.5
+@export var speed := 300.0
+@export var sprint_multi := 2.0
+@export var jump_velocity := 4.5
+@export var damage := 20.0
 
 # stuff
 var spawn_pos = Vector3(0, 2, 0)
 @onready var item: CSGBox3D = $Item
 @onready var animation_player: AnimationPlayer = $player/AnimationPlayer
+@export var coins := 0
+@onready var coin_label: Label = $UI/CoinLabel
 
 # camera
 @export var sensibilty = .3
@@ -50,15 +53,15 @@ func movement(delta: float) -> void:
 
 	var direction = transform.basis * input_dir
 	if Input.is_action_pressed("sprint"):
-		velocity.x = direction.x * speed * sprint_multi
-		velocity.z = direction.z * speed * sprint_multi
+		velocity.x = direction.x * speed * sprint_multi * delta
+		velocity.z = direction.z * speed * sprint_multi * delta
 	else:
-		velocity.x = direction.x * speed
-		velocity.z = direction.z * speed
+		velocity.x = direction.x * speed * delta
+		velocity.z = direction.z * speed * delta
 	
 	move_and_slide()
-	
-func try_destroy() -> void:
+
+func dig() -> void:
 	var ray = $cameraPivot/Camera3D/InteractRay
 	if Input.is_action_just_pressed("dig"):
 		print("trying to dig")
@@ -70,6 +73,11 @@ func try_destroy() -> void:
 			if obj is RigidBody3D and obj.has_method("destroy"):
 				obj.destroy()
 				item.visible = true
+			if obj is StaticBody3D and obj.has_method("mine_ore"):
+				obj.mine_ore(damage)
+				add_coin(randi_range(2, 6))
+
+
 
 func place_item() -> void:
 	var ray = $cameraPivot/Camera3D/InteractRay
@@ -112,6 +120,14 @@ func animate() -> void:
 			animation_player.play("idle_01")
 	
 
+
+func add_coin(amount := 1):
+	coins += amount
+	update_coin_ui()
+	
+func update_coin_ui():
+	coin_label.text = "Coins: %d" % coins
+
 # G O D O T   F U N C T I O N S
 
 func _input(event: InputEvent) -> void:
@@ -126,6 +142,7 @@ func _input(event: InputEvent) -> void:
 	
 func _ready() -> void:
 	print("hello world!")
+	update_coin_ui()
 
 	
 	# signals reception
@@ -137,7 +154,7 @@ func _physics_process(delta: float) -> void:
 	movement(delta)
 	animate()
 	
-	try_destroy()
+	dig()
 	place_item()
 	
 func _process(delta: float) -> void:
